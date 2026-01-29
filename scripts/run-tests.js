@@ -45,22 +45,39 @@ async function runCase(name) {
   if (!fnInfo) throw new Error(`Missing function info for ${spec.export}`);
 
   let args = spec.args;
-  if (args && !Array.isArray(args) && typeof args === "object") {
-    const ordered = [];
-    for (const param of fnInfo.params) {
-      if (!(param.name in args)) {
-        throw new Error(`Missing argument '${param.name}' for ${spec.export}`);
+  const run = () => {
+    if (args && !Array.isArray(args) && typeof args === "object") {
+      const ordered = [];
+      for (const param of fnInfo.params) {
+        if (!(param.name in args)) {
+          throw new Error(`Missing argument '${param.name}' for ${spec.export}`);
+        }
+        ordered.push(args[param.name]);
       }
-      ordered.push(args[param.name]);
+      const extraKeys = Object.keys(args).filter((key) => !fnInfo.params.find((p) => p.name === key));
+      if (extraKeys.length > 0) {
+        throw new Error(`Unknown arguments for ${spec.export}: ${extraKeys.join(", ")}`);
+      }
+      args = ordered;
     }
-    const extraKeys = Object.keys(args).filter((key) => !fnInfo.params.find((p) => p.name === key));
-    if (extraKeys.length > 0) {
-      throw new Error(`Unknown arguments for ${spec.export}: ${extraKeys.join(", ")}`);
+    if (!args) args = [];
+    return fn(...args);
+  };
+
+  if (spec.expectRuntimeError) {
+    try {
+      run();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      if (!message.includes(spec.expectRuntimeError)) {
+        throw new Error(`Expected runtime error containing '${spec.expectRuntimeError}', got '${message}'`);
+      }
+      return;
     }
-    args = ordered;
+    throw new Error(`Expected runtime error but call succeeded`);
   }
-  if (!args) args = [];
-  const result = fn(...args);
+
+  const result = run();
   if (!Object.is(result, spec.expected)) {
     throw new Error(`Expected ${spec.expected} but got ${result} in ${name}`);
   }
