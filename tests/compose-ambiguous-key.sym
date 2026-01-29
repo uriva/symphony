@@ -1,0 +1,16 @@
+one {
+  1
+}
+add {
+  +
+}
+inc {
+  compose(+, one, b)
+}
+combo {
+  compose(add, inc, b)
+}
+bad {
+  compose(combo, one, a)
+}
+export bad

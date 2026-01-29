@@ -1,0 +1,5 @@
+{
+  "export": "choose",
+  "args": { "a": 3, "b": 2 },
+  "expected": 1
+}

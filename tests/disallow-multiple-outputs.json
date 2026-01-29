@@ -1,0 +1,3 @@
+{
+  "expectCompileError": "Blocks must contain exactly one expression"
+}

@@ -1,0 +1,15 @@
+one {
+  1
+}
+zero {
+  0
+}
+cond {
+  >
+}
+choose {
+  c = compose(ternary, cond, cond)
+  t = compose(c, one, t)
+  compose(t, zero, f)
+}
+export choose

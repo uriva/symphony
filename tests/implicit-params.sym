@@ -1,0 +1,13 @@
+one {
+	1
+}
+add {
+	+
+}
+inc {
+	compose(+, one, b)
+}
+addThenInc {
+	compose(inc, add)
+}
+export addThenInc

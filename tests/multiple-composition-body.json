@@ -1,0 +1,5 @@
+{
+  "export": "main",
+  "args": { "a": 2, "b": 3 },
+  "expected": 7
+}

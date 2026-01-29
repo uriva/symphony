@@ -1,0 +1,10 @@
+one {
+  1
+}
+add {
+  +
+}
+bad {
+  compose(add, one, z)
+}
+export bad

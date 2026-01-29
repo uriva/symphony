@@ -1,0 +1,13 @@
+one {
+  1
+}
+add {
+  +
+}
+inc {
+  compose(+, one, b)
+}
+wrong {
+  compose(inc, add, a)
+}
+export wrong

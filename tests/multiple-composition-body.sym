@@ -1,0 +1,18 @@
+one {
+  1
+}
+add {
+  +
+}
+inc {
+  compose(
+    +,
+    one,
+    b
+  )
+}
+main {
+  c = compose(inc, add)
+  compose(inc, c)
+}
+export main

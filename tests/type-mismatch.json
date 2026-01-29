@@ -1,0 +1,3 @@
+{
+  "expectCompileError": "return type of truth must be number"
+}

@@ -1,0 +1,3 @@
+{
+  "expectCompileError": "Ambiguous key 'a' on combo; use add.a or inc.a"
+}

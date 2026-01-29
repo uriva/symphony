@@ -1,0 +1,10 @@
+add {
+	+
+}
+truth {
+	true
+}
+bad {
+	compose(add, truth, a)
+}
+export bad

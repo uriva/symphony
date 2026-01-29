@@ -1,0 +1,3 @@
+{
+  "expectCompileError": "compose on unary function inc must omit key"
+}
